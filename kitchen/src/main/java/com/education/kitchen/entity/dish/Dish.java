@@ -15,6 +15,10 @@ public class Dish {
 
     @Column(name = "dish_name")
     private String name;
+
     @Column(name = "cooking_time_in_minutes")
     private int cookingTimeMinutes;
+
+    @Column(name = "stock_quantity")
+    private int stockQuantity;
 }
