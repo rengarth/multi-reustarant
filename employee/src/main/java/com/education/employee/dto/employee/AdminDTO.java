@@ -1,4 +1,4 @@
-package com.education.employee.dto.worker;
+package com.education.employee.dto.employee;
 
 import lombok.Data;
 

@@ -1,9 +1,9 @@
 package com.education.employee.util;
 
 import com.education.employee.dto.order.OrderDTO;
-import com.education.employee.dto.worker.AdminDTO;
-import com.education.employee.dto.worker.ChangeEmployeeDataRequestDTO;
-import com.education.employee.dto.worker.WaiterDTO;
+import com.education.employee.dto.employee.AdminDTO;
+import com.education.employee.dto.employee.ChangeEmployeeDataRequestDTO;
+import com.education.employee.dto.employee.WaiterDTO;
 import com.education.employee.entity.employee.Admin;
 import com.education.employee.entity.employee.Employee;
 import com.education.employee.entity.employee.Waiter;

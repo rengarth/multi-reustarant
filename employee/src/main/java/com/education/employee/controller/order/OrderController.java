@@ -1,4 +1,4 @@
-package com.education.employee.controller;
+package com.education.employee.controller.order;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
