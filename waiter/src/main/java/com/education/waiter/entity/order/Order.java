@@ -1,6 +1,6 @@
 package com.education.waiter.entity.order;
 
-import com.education.waiter.entity.waiter.Waiter;
+import com.education.waiter.entity.employee.Waiter;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -22,7 +22,7 @@ public class Order {
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
-    private OrderStatus status = OrderStatus.COOKING;
+    private OrderStatus status = OrderStatus.WAITING_FOR_PAYMENT;
 
     @Column(name = "total_quantity")
     private int totalQuantity;

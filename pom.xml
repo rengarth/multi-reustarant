@@ -24,6 +24,7 @@
     <modules>
         <module>waiter</module>
         <module>kitchen</module>
+        <module>client</module>
     </modules>
     <scm>
         <connection/>
