@@ -22,7 +22,7 @@
         <developer/>
     </developers>
     <modules>
-        <module>waiter</module>
+        <module>employee</module>
         <module>kitchen</module>
         <module>client</module>
     </modules>
@@ -33,7 +33,7 @@
         <url/>
     </scm>
     <properties>
-        <java.version>21</java.version>
+        <java.version>17</java.version> <!-- Настройка JDK 21 -->
     </properties>
     <dependencies>
         <dependency>
@@ -43,7 +43,8 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <version>1.18.24</version> <!-- Актуальная версия Lombok для Java 21 -->
+            <scope>provided</scope>
         </dependency>
     </dependencies>
     <build>
@@ -51,13 +52,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
                 <configuration>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </path>
-                    </annotationProcessorPaths>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -74,5 +72,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
