@@ -3,17 +3,21 @@ package com.education.employee.service.employee;
 import com.education.employee.dto.employee.ChangeEmployeeDataRequestDTO;
 import com.education.employee.dto.employee.ChangePasswordRequestDTO;
 import com.education.employee.dto.employee.WaiterDTO;
+import com.education.employee.dto.order.OrderDTO;
 import com.education.employee.entity.employee.Waiter;
 import com.education.employee.exception.employee.EmployeeNotFoundException;
 import com.education.employee.repository.employee.AdminRepository;
 import com.education.employee.repository.employee.WaiterRepository;
 import com.education.employee.util.EmployeeUtils;
+import com.education.employee.util.OrderUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -34,13 +38,18 @@ public class WaiterService {
                         new EmployeeNotFoundException("Waiter with phone number: " + phoneNumber + " is not found"));
     }
 
+    public List<OrderDTO> getCurrentWaiterOrders() {
+        Waiter currentWaiter = getCurrentWaiter();
+        return currentWaiter.getOrders().stream().map(OrderUtils::convertOrderToOrderDTO).toList();
+    }
+
     public void changePassword(ChangePasswordRequestDTO changePasswordRequestDTO) {
         String oldPassword = changePasswordRequestDTO.getOldPassword();
         String newPassword = changePasswordRequestDTO.getNewPassword();
-        Waiter currentUser = getCurrentWaiter();
-        EmployeeUtils.checkPasswords(oldPassword, newPassword, currentUser.getPassword(), passwordEncoder);
-        currentUser.setPassword(passwordEncoder.encode(newPassword));
-        waiterRepository.save(currentUser);
+        Waiter currentWaiter = getCurrentWaiter();
+        EmployeeUtils.checkPasswords(oldPassword, newPassword, currentWaiter.getPassword(), passwordEncoder);
+        currentWaiter.setPassword(passwordEncoder.encode(newPassword));
+        waiterRepository.save(currentWaiter);
     }
 
     public WaiterDTO updateCurrentWaiter(ChangeEmployeeDataRequestDTO changeEmployeeDataRequestDTO) {

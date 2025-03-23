@@ -1,13 +1,18 @@
 package com.education.employee.service.employee;
 
 import com.education.employee.dto.employee.*;
+import com.education.employee.dto.order.OrderDTO;
 import com.education.employee.entity.employee.Admin;
 import com.education.employee.entity.employee.Waiter;
+import com.education.employee.entity.order.Order;
 import com.education.employee.exception.employee.EmployeeIsDeletedException;
 import com.education.employee.exception.employee.EmployeeNotFoundException;
+import com.education.employee.exception.order.OrderNotFoundException;
 import com.education.employee.repository.employee.AdminRepository;
 import com.education.employee.repository.employee.WaiterRepository;
+import com.education.employee.repository.order.OrderRepository;
 import com.education.employee.util.EmployeeUtils;
+import com.education.employee.util.OrderUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +28,7 @@ public class AdminService {
 
     private final AdminRepository adminRepository;
     private final WaiterRepository waiterRepository;
+    private final OrderRepository orderRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
     public List<WaiterDTO> getAllWaiters() {
@@ -32,9 +38,24 @@ public class AdminService {
     }
 
     public WaiterDTO getWaiterById(Long id) {
-        Waiter user = waiterRepository.findById(id)
+        Waiter waiter = waiterRepository.findById(id)
                 .orElseThrow(() -> new EmployeeNotFoundException("Waiter with id: " + id + " not found"));
-        return EmployeeUtils.convertWaiterToWaiterDTO(user);
+        return EmployeeUtils.convertWaiterToWaiterDTO(waiter);
+    }
+
+    public List<OrderDTO> getAllOrders() {
+        return orderRepository.findAll().stream().map(OrderUtils::convertOrderToOrderDTO).toList();
+    }
+
+    public OrderDTO getOrderById(Long id) {
+        Order order = orderRepository.findById(id).orElseThrow(
+                () -> new OrderNotFoundException("Order with id: " + id + " not found"));
+        return OrderUtils.convertOrderToOrderDTO(order);
+    }
+
+    public List<OrderDTO> getWaiterOrders(Long id) {
+        WaiterDTO waiterDTO = getWaiterById(id);
+        return waiterDTO.getOrders();
     }
 
     public WaiterDTO createWaiter(WaiterRegistrationDTO registrationDTO) {
