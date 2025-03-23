@@ -9,7 +9,7 @@
         <relativePath/>
     </parent>
     <groupId>com.education</groupId>
-    <artifactId>liga-restaurant</artifactId>
+    <artifactId>liga-restaurant-project</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>liga-restaurant</name>
@@ -22,7 +22,7 @@
         <developer/>
     </developers>
     <modules>
-        <module>employee</module>
+        <module>restaurant-service</module>
         <module>kitchen</module>
     </modules>
     <scm>

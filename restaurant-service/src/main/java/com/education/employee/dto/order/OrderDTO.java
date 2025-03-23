@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class OrderDTO {
     private Long id;
     private Waiter waiter;
-    private OrderStatus status = OrderStatus.WAITING_FOR_PAYMENT;
+    private OrderStatus status;
     private int totalQuantity;
     private int totalPrice;
     private LocalDateTime createTime;

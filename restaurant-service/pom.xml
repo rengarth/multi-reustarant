@@ -3,10 +3,10 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.education</groupId>
-        <artifactId>liga-restaurant</artifactId>
+        <artifactId>liga-restaurant-project</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>employee</artifactId>
+    <artifactId>restaurant-service</artifactId>
     <packaging>jar</packaging>
     <name>employee</name>
     <url>http://maven.apache.org</url>
