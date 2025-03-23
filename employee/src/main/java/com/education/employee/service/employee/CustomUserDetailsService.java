@@ -1,4 +1,4 @@
-package com.education.employee.service;
+package com.education.employee.service.employee;
 
 import com.education.employee.entity.employee.Admin;
 import com.education.employee.entity.employee.Waiter;
@@ -25,7 +25,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
-        // Сначала попробуем найти администратора
         Admin admin = adminRepository.findByPhoneNumber(phoneNumber)
                 .orElse(null);
 

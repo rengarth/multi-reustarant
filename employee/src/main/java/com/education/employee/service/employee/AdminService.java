@@ -1,4 +1,4 @@
-package com.education.employee.service;
+package com.education.employee.service.employee;
 
 import com.education.employee.dto.employee.*;
 import com.education.employee.entity.employee.Admin;
