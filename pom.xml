@@ -12,8 +12,8 @@
     <artifactId>liga-restaurant-project</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>liga-restaurant</name>
-    <description>liga-restaurant</description>
+    <name>liga-restaurant-project</name>
+    <description>liga-restaurant-project</description>
     <url/>
     <licenses>
         <license/>

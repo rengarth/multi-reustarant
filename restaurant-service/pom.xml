@@ -8,7 +8,7 @@
     </parent>
     <artifactId>restaurant-service</artifactId>
     <packaging>jar</packaging>
-    <name>employee</name>
+    <name>restaurant-service</name>
     <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
