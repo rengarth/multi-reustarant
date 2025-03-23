@@ -82,7 +82,7 @@ public class EmployeeUtils {
 
     public static void validatePhoneNumber(String phoneNumber) {
         if (!phoneNumber.matches("^\\+7\\d{10}$")) {
-            throw new IllegalArgumentException("Неверный формат телефонного номера. Должен быть в формате +7**********.");
+            throw new IllegalArgumentException("Wrong phone number format. It must be +7**********");
         }
     }
 

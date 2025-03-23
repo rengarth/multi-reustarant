@@ -1,0 +1,33 @@
+package com.education.employee.util;
+
+import com.education.employee.dto.menu.CategoryDTO;
+import com.education.employee.dto.menu.DishDTO;
+import com.education.employee.entity.menu.Category;
+import com.education.employee.entity.menu.Dish;
+
+public class MenuUtils {
+
+    public static CategoryDTO convertCategoryToCategoryDTO(Category category) {
+        CategoryDTO categoryDTO = new CategoryDTO();
+        categoryDTO.setId(category.getId());
+        categoryDTO.setName(category.getName());
+        categoryDTO.setIsDeleted(category.getIsDeleted());
+        if (category.getParent() != null) {
+            categoryDTO.setParentId(category.getParent().getId());
+        }
+        return categoryDTO;
+    }
+
+    public static DishDTO convertDishToDishDTO(Dish dish) {
+        DishDTO dishDTO = new DishDTO();
+        dishDTO.setId(dish.getId());
+        dishDTO.setName(dish.getName());
+        dishDTO.setDescription(dish.getDescription());
+        dishDTO.setPricePerOne(dish.getPricePerOne());
+        dishDTO.setStockQuantity(dish.getStockQuantity());
+        dishDTO.setIsDeleted(dish.getIsDeleted());
+        CategoryDTO categoryDTO = convertCategoryToCategoryDTO(dish.getCategory());
+        dishDTO.setCategory(categoryDTO);
+        return dishDTO;
+    }
+}

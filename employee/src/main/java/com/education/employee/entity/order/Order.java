@@ -20,9 +20,13 @@ public class Order {
     @JoinColumn(name = "waiter_id", nullable = false)
     private Waiter waiter;
 
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
-    private OrderStatus status = OrderStatus.WAITING_FOR_PAYMENT;
+    private OrderStatus status = OrderStatus.CREATED;
+
+    @Column(name = "payment_status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus paymentStatus = PaymentStatus.NOT_PAID;
 
     @Column(name = "total_quantity")
     private int totalQuantity;
