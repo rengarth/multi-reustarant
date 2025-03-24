@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,6 +22,9 @@ public class Order {
     @JoinColumn(name = "waiter_id", nullable = false)
     private Waiter waiter;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderDetail> orderDetails = new ArrayList<>();
+
     @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
     private OrderStatus status = OrderStatus.CREATED;
@@ -28,11 +33,8 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private PaymentStatus paymentStatus = PaymentStatus.NOT_PAID;
 
-    @Column(name = "total_quantity")
-    private int totalQuantity;
-
-    @Column(name = "total_price")
-    private int totalPrice;
+    @Column(name = "total_amount")
+    private int totalAmount;
 
     @Column(name = "create_time")
     private LocalDateTime createTime;

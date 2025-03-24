@@ -27,7 +27,7 @@ public class RestTableController {
 
     @GetMapping("/{number}")
     public ResponseEntity<RestTableDTO> getTable(@PathVariable Integer number) {
-        RestTableDTO table = restTableService.getTable(number);
+        RestTableDTO table = restTableService.getTableDTO(number);
         return ResponseEntity.ok(table);
     }
 

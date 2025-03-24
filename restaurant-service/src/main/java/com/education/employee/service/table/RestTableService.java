@@ -90,19 +90,12 @@ public class RestTableService {
         return RestTableUtils.convertRestTableToRestTableDTO(table);
     }
 
-    public RestTableDTO getTable(Integer number) {
+    public RestTableDTO getTableDTO(Integer number) {
         RestTable table = getTableOfCurrentWaiter(number);
         return RestTableUtils.convertRestTableToRestTableDTO(table);
     }
 
-    public void clearTable(Integer number) {
-        RestTable table = getTableOfCurrentWaiter(number);
-        table.getTableItems().clear();
-        table.setTotalAmount(0);
-        restTableRepository.save(table);
-    }
-
-    private RestTable getTableOfCurrentWaiter(Integer number) {
+    public RestTable getTableOfCurrentWaiter(Integer number) {
         RestTable table = restTableRepository.findByNumber(number)
                 .orElseThrow(() -> new RestTableNotFoundException("Table with number: " + number + " not found"));
         if (table.getWaiter() == null) {
@@ -111,5 +104,12 @@ public class RestTableService {
             throw new InsufficientPrivilegiesException("This waiter is not assigned to this table");
         }
         return table;
+    }
+
+    public void clearTable(Integer number) {
+        RestTable table = getTableOfCurrentWaiter(number);
+        table.getTableItems().clear();
+        table.setTotalAmount(0);
+        restTableRepository.save(table);
     }
 }
