@@ -31,6 +31,9 @@ public class Dish {
     @Column(name = "is_deleted", nullable = false)
     private Boolean isDeleted = Boolean.FALSE;
 
+    @Column(name = "is_available", nullable = false)
+    private Boolean isAvailable = Boolean.FALSE;
+
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;

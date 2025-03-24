@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/waiter")
+@RequestMapping("/waiters")
 @RequiredArgsConstructor
 public class WaiterController {
 

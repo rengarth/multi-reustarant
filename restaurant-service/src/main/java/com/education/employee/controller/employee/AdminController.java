@@ -32,7 +32,7 @@ public class AdminController {
         return ResponseEntity.ok(waiter);
     }
 
-    @PostMapping("/waiters")
+    @PostMapping("/waiters/create")
     public ResponseEntity<WaiterDTO> createWaiter(@RequestBody WaiterRegistrationDTO registrationDTO) {
         WaiterDTO createdWaiter = adminService.createWaiter(registrationDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdWaiter);

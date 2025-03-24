@@ -16,5 +16,8 @@ public class DishDTO {
     @JsonProperty("isDeleted")
     private Boolean isDeleted;
 
+    @JsonProperty("isAvailable")
+    private Boolean isAvailable;
+
     private CategoryDTO category;
 }

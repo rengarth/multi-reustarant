@@ -8,5 +8,6 @@ import java.util.Optional;
 
 @Repository
 public interface RestTableRepository extends JpaRepository<RestTable, Long> {
-    Optional<RestTable> findByIdAndWaiterIsNull(Long id);
+    Optional<RestTable> findByNumberAndWaiterIsNull(Integer number);
+    Optional<RestTable> findByNumber(Integer number);
 }
