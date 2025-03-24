@@ -26,5 +26,9 @@ public class RestTableItem {
     private Dish dish;
 
     @Column(nullable = false)
-    private int quantity;
+    private Integer quantity;
+
+    public Integer getTotalPrice() {
+        return dish.getPricePerOne() * quantity;
+    }
 }

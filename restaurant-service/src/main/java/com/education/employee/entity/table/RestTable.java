@@ -21,7 +21,7 @@ public class RestTable {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private int number;
+    private Integer number;
 
     @ManyToOne
     @JoinColumn(name = "waiter_id")
@@ -29,5 +29,20 @@ public class RestTable {
 
     @OneToMany(mappedBy = "table", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RestTableItem> tableItems = new ArrayList<>();
+
+    @Column(name = "total_amount")
+    private int totalAmount;
+
+    public Integer calculateTotalAmount() {
+        return tableItems.stream().mapToInt(RestTableItem::getTotalPrice).sum();
+    }
+
+    public void addItem(RestTableItem item) {
+        tableItems.add(item);
+    }
+
+    public void removeItem(RestTableItem item) {
+        tableItems.remove(item);
+    }
 }
 
