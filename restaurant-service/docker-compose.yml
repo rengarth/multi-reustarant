@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  database:
+    ports:
+      - '5432:5432'
+    image: postgres:latest
+    container_name: 'java-postgres-db'
+    volumes:
+      - './init:/docker-entrypoint-initdb.d'
+    environment:
+      - 'SPRING_JPA_HIBERNATE_DDL_AUTO=update'
+      - 'POSTGRES_USER=postgres'
+      - 'POSTGRES_PASSWORD=0'
+      - 'POSTGRES_ROOT_PASSWORD=0'
+      - 'POSTGRES_DB=restaurant_service_db'
+      - 'PGDATA=/var/lib/postgresql/data'
+
+  application:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: 'java-e-commerce-edu-case'
+    environment:
+      - 'spring.datasource.url=jdbc:postgresql://database:5432/restaurant_service_db'
+    ports:
+      - '8080:8080'
+    depends_on:
+      - database
