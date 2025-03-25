@@ -19,7 +19,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: 'java-e-commerce-edu-case'
+    container_name: 'java-liga-restaurant'
     environment:
       - 'spring.datasource.url=jdbc:postgresql://database:5432/restaurant_service_db'
     ports:

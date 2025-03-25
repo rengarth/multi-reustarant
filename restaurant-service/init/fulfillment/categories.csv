@@ -1,7 +1,7 @@
 id,is_deleted,name,parent_id
-1,False,Menu,
-2,False,First courses,1
-3,False,Main courses,1
-4,False,Drinks,1
-5,False,Alcoholic,4
-6,False,Non-alcoholic,4
+1,false,Menu,
+2,false,First courses,1
+3,false,Main courses,1
+4,false,Drinks,1
+5,false,Alcoholic,4
+6,false,Non-alcoholic,4

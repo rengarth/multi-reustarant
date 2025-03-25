@@ -20,6 +20,7 @@ public class EmployeeUtils {
 
     public static WaiterDTO convertWaiterToWaiterDTO(Waiter waiter) {
         WaiterDTO waiterDTO = new WaiterDTO();
+        waiterDTO.setId(waiter.getId());
         waiterDTO.setFirstName(waiter.getFirstName());
         waiterDTO.setLastName(waiter.getLastName());
         waiterDTO.setPhoneNumber(waiter.getPhoneNumber());

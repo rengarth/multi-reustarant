@@ -11,6 +11,7 @@ public class RestTableUtils {
 
     public static RestTableDTO convertRestTableToRestTableDTO(RestTable table) {
         RestTableDTO restTableDTO = new RestTableDTO();
+        restTableDTO.setNumber(table.getNumber());
         restTableDTO.setTableItems(
                 table.getTableItems()
                         .stream()

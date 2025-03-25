@@ -8,6 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 public class RestTableDTO {
+    private Integer number;
     private List<RestTableItemDTO> tableItems;
     private int totalAmount;
 }

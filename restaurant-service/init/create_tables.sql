@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS order_details (
     CONSTRAINT fk_dish FOREIGN KEY (dish_id) REFERENCES dishes(id) ON DELETE CASCADE
     );
 
-CREATE TABLE IF NOT EXISTS rest_tables (
+CREATE TABLE IF NOT EXISTS tables (
                                            id SERIAL PRIMARY KEY,
                                            number INT UNIQUE NOT NULL,
                                            waiter_id BIGINT,
@@ -65,26 +65,36 @@ CREATE TABLE IF NOT EXISTS rest_tables (
                                            CONSTRAINT fk_waiter FOREIGN KEY (waiter_id) REFERENCES waiters(id) ON DELETE SET NULL
     );
 
-CREATE TABLE IF NOT EXISTS rest_table_items (
+CREATE TABLE IF NOT EXISTS table_items (
                                                 id SERIAL PRIMARY KEY,
                                                 table_id BIGINT NOT NULL,
                                                 dish_id BIGINT NOT NULL,
                                                 quantity INT NOT NULL,
-                                                CONSTRAINT fk_table FOREIGN KEY (table_id) REFERENCES rest_tables(id) ON DELETE CASCADE,
+                                                CONSTRAINT fk_table FOREIGN KEY (table_id) REFERENCES tables (id) ON DELETE CASCADE,
     CONSTRAINT fk_dish FOREIGN KEY (dish_id) REFERENCES dishes(id) ON DELETE CASCADE
     );
 
-COPY categories(id, name, parent_id, is_deleted)
+COPY categories(id, is_deleted, name, parent_id)
     FROM '/docker-entrypoint-initdb.d/fulfillment/categories.csv'
     DELIMITER ','
     CSV HEADER;
 
-COPY dishes(id, name, description, price_per_one, stock_quantity, is_deleted, is_available, category_id)
+COPY dishes(id, description, is_deleted, name, price_per_one, stock_quantity, category_id, is_available)
     FROM '/docker-entrypoint-initdb.d/fulfillment/dishes.csv'
     DELIMITER ','
     CSV HEADER;
 
-COPY rest_tables(id, number, waiter_id, total_amount)
-    FROM '/docker-entrypoint-initdb.d/fulfillment/rest_tables.csv'
+COPY tables (id, number, waiter_id, total_amount)
+    FROM '/docker-entrypoint-initdb.d/fulfillment/tables.csv'
+    DELIMITER ','
+    CSV HEADER;
+
+COPY administrators(id, first_name, is_deleted, last_name, password, phone_number)
+    FROM '/docker-entrypoint-initdb.d/fulfillment/administrators.csv'
+    DELIMITER ','
+    CSV HEADER;
+
+COPY waiters(id, first_name, is_deleted, last_name, password, phone_number)
+    FROM '/docker-entrypoint-initdb.d/fulfillment/waiters.csv'
     DELIMITER ','
     CSV HEADER;
