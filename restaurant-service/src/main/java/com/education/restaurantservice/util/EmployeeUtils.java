@@ -1,6 +1,5 @@
 package com.education.restaurantservice.util;
 
-import com.education.restaurantservice.dto.order.OrderDTO;
 import com.education.restaurantservice.dto.employee.AdminDTO;
 import com.education.restaurantservice.dto.employee.ChangeEmployeeDataRequestDTO;
 import com.education.restaurantservice.dto.employee.WaiterDTO;
@@ -12,10 +11,6 @@ import com.education.restaurantservice.repository.employee.AdminRepository;
 import com.education.restaurantservice.repository.employee.WaiterRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 public class EmployeeUtils {
 
     public static WaiterDTO convertWaiterToWaiterDTO(Waiter waiter) {
@@ -25,13 +20,6 @@ public class EmployeeUtils {
         waiterDTO.setLastName(waiter.getLastName());
         waiterDTO.setPhoneNumber(waiter.getPhoneNumber());
         waiterDTO.setIsDeleted(waiter.isDeleted());
-        if (!waiter.getOrders().isEmpty()) {
-            List<OrderDTO> orderDTOs = waiter.getOrders().stream()
-                    .map(OrderUtils::convertOrderToOrderDTO)
-                    .collect(Collectors.toList());
-            waiterDTO.setOrders(orderDTOs);
-        }
-        else waiterDTO.setOrders(new ArrayList<>());
         return waiterDTO;
     }
 

@@ -28,7 +28,7 @@ public class MenuUtils {
         dishDTO.setIsDeleted(dish.getIsDeleted());
         dishDTO.setIsAvailable(dish.getIsAvailable());
         CategoryDTO categoryDTO = convertCategoryToCategoryDTO(dish.getCategory());
-        dishDTO.setCategory(categoryDTO);
+        dishDTO.setCategoryName(categoryDTO.getName());
         return dishDTO;
     }
 }

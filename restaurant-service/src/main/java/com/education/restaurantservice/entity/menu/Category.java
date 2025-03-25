@@ -1,12 +1,14 @@
 package com.education.restaurantservice.entity.menu;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "categories")
 public class Category {
 

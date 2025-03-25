@@ -2,13 +2,12 @@ package com.education.restaurantservice.entity.table;
 
 import com.education.restaurantservice.entity.menu.Dish;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "table_items")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class RestTableItem {
@@ -16,10 +15,6 @@ public class RestTableItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "table_id", nullable = false)
-    private RestTable table;
 
     @ManyToOne
     @JoinColumn(name = "dish_id", nullable = false)

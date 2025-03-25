@@ -2,18 +2,15 @@ package com.education.restaurantservice.entity.table;
 
 import com.education.restaurantservice.entity.employee.Waiter;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "tables")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Getter
+@Setter
 public class RestTable {
 
     @Id
@@ -27,7 +24,11 @@ public class RestTable {
     @JoinColumn(name = "waiter_id")
     private Waiter waiter;
 
-    @OneToMany(mappedBy = "table", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinTable(
+            name = "table_items_list",
+            joinColumns = @JoinColumn(name = "table_id"),
+            inverseJoinColumns = @JoinColumn(name = "table_item_id"))
     private List<RestTableItem> tableItems = new ArrayList<>();
 
     @Column(name = "total_amount")

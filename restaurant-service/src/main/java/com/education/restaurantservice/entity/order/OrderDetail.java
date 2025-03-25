@@ -2,10 +2,12 @@ package com.education.restaurantservice.entity.order;
 
 import com.education.restaurantservice.entity.menu.Dish;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "order_details")
 public class OrderDetail {
 

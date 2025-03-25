@@ -1,20 +1,17 @@
 package com.education.restaurantservice.entity.employee;
 
-import com.education.restaurantservice.entity.order.Order;
-import jakarta.persistence.*;
-import lombok.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "waiters")
-@Data
-@NoArgsConstructor
+@Getter
+@Setter
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class Waiter extends Employee {
-
-    @OneToMany(mappedBy = "waiter", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Order> orders = new ArrayList<>();
 }

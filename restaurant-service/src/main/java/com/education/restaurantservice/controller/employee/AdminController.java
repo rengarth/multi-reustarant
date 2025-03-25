@@ -1,7 +1,6 @@
 package com.education.restaurantservice.controller.employee;
 
 import com.education.restaurantservice.dto.employee.*;
-import com.education.restaurantservice.dto.order.OrderDTO;
 import com.education.restaurantservice.service.employee.AdminService;
 import com.education.restaurantservice.util.EmployeeUtils;
 import lombok.RequiredArgsConstructor;
@@ -68,11 +67,11 @@ public class AdminController {
         return ResponseEntity.ok(restoredWaiter);
     }
 
-    @GetMapping("/waiters/{id}/orders")
-    public ResponseEntity<List<OrderDTO>> getWaiterOrders(@PathVariable Long id) {
-        List<OrderDTO> waiterOrders = adminService.getWaiterOrders(id);
-        return ResponseEntity.ok(waiterOrders);
-    }
+//    @GetMapping("/waiters/{id}/orders")
+//    public ResponseEntity<List<OrderDTO>> getWaiterOrders(@PathVariable Long id) {
+//        List<OrderDTO> waiterOrders = adminService.getWaiterOrders(id);
+//        return ResponseEntity.ok(waiterOrders);
+//    }
 
     @GetMapping("/current")
     public ResponseEntity<AdminDTO> getCurrentAdmin() {

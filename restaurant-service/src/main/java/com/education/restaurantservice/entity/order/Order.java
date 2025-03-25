@@ -2,14 +2,16 @@ package com.education.restaurantservice.entity.order;
 
 import com.education.restaurantservice.entity.employee.Waiter;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @Table(name = "orders")
 public class Order {
 
@@ -39,13 +41,8 @@ public class Order {
     @Column(name = "create_time")
     private LocalDateTime createTime;
 
-    @Column(name = "lead_time")
+    @Column(name = "lead_time", nullable = true)
     private LocalDateTime leadTime;
-
-    @PrePersist
-    protected void onCreate() {
-        this.createTime = LocalDateTime.now();
-    }
 }
 
 

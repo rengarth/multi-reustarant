@@ -3,21 +3,17 @@ package com.education.restaurantservice.service.employee;
 import com.education.restaurantservice.dto.employee.ChangeEmployeeDataRequestDTO;
 import com.education.restaurantservice.dto.employee.ChangePasswordRequestDTO;
 import com.education.restaurantservice.dto.employee.WaiterDTO;
-import com.education.restaurantservice.dto.order.OrderDTO;
 import com.education.restaurantservice.entity.employee.Waiter;
 import com.education.restaurantservice.exception.employee.EmployeeNotFoundException;
 import com.education.restaurantservice.repository.employee.AdminRepository;
 import com.education.restaurantservice.repository.employee.WaiterRepository;
 import com.education.restaurantservice.util.EmployeeUtils;
-import com.education.restaurantservice.util.OrderUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -38,10 +34,10 @@ public class WaiterService {
                         new EmployeeNotFoundException("Waiter with phone number: " + phoneNumber + " is not found"));
     }
 
-    public List<OrderDTO> getCurrentWaiterOrders() {
-        Waiter currentWaiter = getCurrentWaiter();
-        return currentWaiter.getOrders().stream().map(OrderUtils::convertOrderToOrderDTO).toList();
-    }
+//    public List<OrderDTO> getCurrentWaiterOrders() {
+//        Waiter currentWaiter = getCurrentWaiter();
+//        return currentWaiter.getOrders().stream().map(OrderUtils::convertOrderToOrderDTO).toList();
+//    }
 
     public void changePassword(ChangePasswordRequestDTO changePasswordRequestDTO) {
         String oldPassword = changePasswordRequestDTO.getOldPassword();

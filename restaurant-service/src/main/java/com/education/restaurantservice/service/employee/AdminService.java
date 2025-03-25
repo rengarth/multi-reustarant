@@ -1,7 +1,6 @@
 package com.education.restaurantservice.service.employee;
 
 import com.education.restaurantservice.dto.employee.*;
-import com.education.restaurantservice.dto.order.OrderDTO;
 import com.education.restaurantservice.entity.employee.Admin;
 import com.education.restaurantservice.entity.employee.Waiter;
 import com.education.restaurantservice.exception.employee.EmployeeIsDeletedException;
@@ -38,10 +37,10 @@ public class AdminService {
         return EmployeeUtils.convertWaiterToWaiterDTO(waiter);
     }
 
-    public List<OrderDTO> getWaiterOrders(Long id) {
-        WaiterDTO waiterDTO = getWaiterById(id);
-        return waiterDTO.getOrders();
-    }
+//    public List<OrderDTO> getWaiterOrders(Long id) {
+//        WaiterDTO waiterDTO = getWaiterById(id);
+//        return waiterDTO.getOrders();
+//    }
 
     public WaiterDTO createWaiter(WaiterRegistrationDTO registrationDTO) {
         EmployeeUtils.validatePhoneNumber(registrationDTO.getPhoneNumber());

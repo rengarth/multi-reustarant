@@ -19,5 +19,5 @@ public class DishDTO {
     @JsonProperty("isAvailable")
     private Boolean isAvailable;
 
-    private CategoryDTO category;
+    private String categoryName;
 }

@@ -16,6 +16,7 @@ import com.education.restaurantservice.util.OrderUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class OrderService {
         order.setStatus(OrderStatus.CREATED);
         order.setPaymentStatus(PaymentStatus.NOT_PAID);
         order.setTotalAmount(table.getTotalAmount());
+        order.setCreateTime(LocalDateTime.now());
         order.setLeadTime(null);
         List<OrderDetail> orderDetails = new ArrayList<>();
         for (RestTableItem restTableItem : table.getTableItems()) {
