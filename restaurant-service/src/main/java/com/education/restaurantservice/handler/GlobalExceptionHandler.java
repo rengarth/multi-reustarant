@@ -13,11 +13,13 @@ import com.education.restaurantservice.exception.table.RestTableIsNotAssignedExc
 import com.education.restaurantservice.exception.table.RestTableIsOccupiedException;
 import com.education.restaurantservice.exception.table.RestTableItemNotFoundException;
 import com.education.restaurantservice.exception.table.RestTableNotFoundException;
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+@Hidden
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
