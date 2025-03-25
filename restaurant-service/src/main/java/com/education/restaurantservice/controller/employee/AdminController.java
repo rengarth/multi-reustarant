@@ -74,18 +74,6 @@ public class AdminController {
         return ResponseEntity.ok(waiterOrders);
     }
 
-    @GetMapping("/orders")
-    public ResponseEntity<List<OrderDTO>> getAllOrders() {
-        List<OrderDTO> orders = adminService.getAllOrders();
-        return ResponseEntity.ok(orders);
-    }
-
-    @GetMapping("/orders/{id}")
-    public ResponseEntity<OrderDTO> getOrderById(@PathVariable Long id) {
-        OrderDTO order = adminService.getOrderById(id);
-        return ResponseEntity.ok(order);
-    }
-
     @GetMapping("/current")
     public ResponseEntity<AdminDTO> getCurrentAdmin() {
         AdminDTO currentAdmin = EmployeeUtils.convertAdminToAdminDTO(adminService.getCurrentAdmin());

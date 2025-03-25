@@ -4,15 +4,11 @@ import com.education.restaurantservice.dto.employee.*;
 import com.education.restaurantservice.dto.order.OrderDTO;
 import com.education.restaurantservice.entity.employee.Admin;
 import com.education.restaurantservice.entity.employee.Waiter;
-import com.education.restaurantservice.entity.order.Order;
 import com.education.restaurantservice.exception.employee.EmployeeIsDeletedException;
 import com.education.restaurantservice.exception.employee.EmployeeNotFoundException;
-import com.education.restaurantservice.exception.order.OrderNotFoundException;
 import com.education.restaurantservice.repository.employee.AdminRepository;
 import com.education.restaurantservice.repository.employee.WaiterRepository;
-import com.education.restaurantservice.repository.order.OrderRepository;
 import com.education.restaurantservice.util.EmployeeUtils;
-import com.education.restaurantservice.util.OrderUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,7 +24,6 @@ public class AdminService {
 
     private final AdminRepository adminRepository;
     private final WaiterRepository waiterRepository;
-    private final OrderRepository orderRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
     public List<WaiterDTO> getAllWaiters() {
@@ -41,16 +36,6 @@ public class AdminService {
         Waiter waiter = waiterRepository.findById(id)
                 .orElseThrow(() -> new EmployeeNotFoundException("Waiter with id: " + id + " not found"));
         return EmployeeUtils.convertWaiterToWaiterDTO(waiter);
-    }
-
-    public List<OrderDTO> getAllOrders() {
-        return orderRepository.findAll().stream().map(OrderUtils::convertOrderToOrderDTO).toList();
-    }
-
-    public OrderDTO getOrderById(Long id) {
-        Order order = orderRepository.findById(id).orElseThrow(
-                () -> new OrderNotFoundException("Order with id: " + id + " not found"));
-        return OrderUtils.convertOrderToOrderDTO(order);
     }
 
     public List<OrderDTO> getWaiterOrders(Long id) {
@@ -67,7 +52,6 @@ public class AdminService {
         waiter.setPassword(passwordEncoder.encode(registrationDTO.getPassword()));
         waiter.setFirstName(registrationDTO.getFirstName());
         waiter.setLastName(registrationDTO.getLastName());
-//        waiter.setDeleted(false);
         Waiter savedWaiter = waiterRepository.save(waiter);
         return EmployeeUtils.convertWaiterToWaiterDTO(savedWaiter);
     }
