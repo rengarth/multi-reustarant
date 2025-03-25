@@ -24,7 +24,6 @@ public class MenuUtils {
         dishDTO.setName(dish.getName());
         dishDTO.setDescription(dish.getDescription());
         dishDTO.setPricePerOne(dish.getPricePerOne());
-        dishDTO.setStockQuantity(dish.getStockQuantity());
         dishDTO.setIsDeleted(dish.getIsDeleted());
         dishDTO.setIsAvailable(dish.getIsAvailable());
         CategoryDTO categoryDTO = convertCategoryToCategoryDTO(dish.getCategory());

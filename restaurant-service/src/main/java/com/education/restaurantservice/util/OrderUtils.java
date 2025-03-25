@@ -13,7 +13,7 @@ public class OrderUtils {
     public static OrderDTO convertOrderToOrderDTO(Order order) {
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setId(order.getId());
-        orderDTO.setWaiter(order.getWaiter());
+        orderDTO.setWaiter(EmployeeUtils.convertWaiterToWaiterDTO(order.getWaiter()));
         orderDTO.setStatus(order.getStatus());
         orderDTO.setPaymentStatus(order.getPaymentStatus());
         orderDTO.setTotalAmount(order.getTotalAmount());

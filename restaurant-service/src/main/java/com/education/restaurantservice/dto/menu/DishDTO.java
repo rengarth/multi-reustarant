@@ -11,7 +11,6 @@ public class DishDTO {
     private String name;
     private String description;
     private Integer pricePerOne;
-    private Integer stockQuantity;
 
     @JsonProperty("isDeleted")
     private Boolean isDeleted;
