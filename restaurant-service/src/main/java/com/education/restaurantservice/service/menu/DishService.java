@@ -28,7 +28,7 @@ public class DishService {
     public List<DishDTO> getAllActiveDishes() {
         return dishRepository.findAll().stream()
                 .filter(dish -> !dish.getIsDeleted())
-                .filter(dish -> !dish.getIsAvailable())
+                .filter(Dish::getIsAvailable)
                 .map(MenuUtils::convertDishToDishDTO)
                 .collect(Collectors.toList());
     }

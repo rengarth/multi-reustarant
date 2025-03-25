@@ -1,12 +1,14 @@
 package com.education.restaurantservice.service.order;
 
 import com.education.restaurantservice.dto.order.OrderDTO;
+import com.education.restaurantservice.entity.menu.Dish;
 import com.education.restaurantservice.entity.order.Order;
 import com.education.restaurantservice.entity.order.OrderDetail;
 import com.education.restaurantservice.entity.order.OrderStatus;
 import com.education.restaurantservice.entity.order.PaymentStatus;
 import com.education.restaurantservice.entity.table.RestTable;
 import com.education.restaurantservice.entity.table.RestTableItem;
+import com.education.restaurantservice.repository.menu.DishRepository;
 import com.education.restaurantservice.repository.order.OrderRepository;
 import com.education.restaurantservice.service.employee.WaiterService;
 import com.education.restaurantservice.service.table.RestTableService;
@@ -22,6 +24,7 @@ import java.util.List;
 public class OrderService {
 
     private final OrderRepository orderRepository;
+    private final DishRepository dishRepository;
     private final WaiterService waiterService;
     private final RestTableService restTableService;
 
@@ -47,6 +50,15 @@ public class OrderService {
         }
         order.setOrderDetails(orderDetails);
         orderRepository.save(order);
+        table.getTableItems().forEach(tableItem -> {
+            Dish dish = tableItem.getDish();
+            int remainingStock = dish.getStockQuantity() - tableItem.getQuantity();
+            if (remainingStock == 0) {
+                dish.setIsAvailable(false);
+            }
+            dish.setStockQuantity(remainingStock);
+            dishRepository.save(dish);
+        });
         return OrderUtils.convertOrderToOrderDTO(order);
     }
 }
