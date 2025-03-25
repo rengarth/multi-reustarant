@@ -1,0 +1,4 @@
+id,first_name,is_deleted,last_name,password,phone_number
+1,Maria,false,Petrova,"$2a$10$OsJRuE7lHIzYYPqXGc2/teGkSudLdOp5Qt4uCe5xoj1FxtFaOX7D.",+72002002020
+3,Ekaterina,false,Sidorova,"$2a$10$OsJRuE7lHIzYYPqXGc2/teGkSudLdOp5Qt4uCe5xoj1FxtFaOX7D.",+73003003030
+2,Ivan,false,Ivanov,"$2a$10$OsJRuE7lHIzYYPqXGc2/teGkSudLdOp5Qt4uCe5xoj1FxtFaOX7D.",+79601289577
