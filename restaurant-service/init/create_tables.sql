@@ -1,0 +1,90 @@
+CREATE TABLE IF NOT EXISTS categories (
+                                          id SERIAL PRIMARY KEY,
+                                          name VARCHAR(255) NOT NULL,
+    is_deleted BOOLEAN NOT NULL,
+    parent_id BIGINT,
+    CONSTRAINT fk_parent FOREIGN KEY (parent_id) REFERENCES categories(id) ON DELETE CASCADE
+    );
+
+CREATE TABLE IF NOT EXISTS dishes (
+                                      id SERIAL PRIMARY KEY,
+                                      name VARCHAR(255) NOT NULL,
+    description TEXT,
+    price_per_one INT NOT NULL,
+    stock_quantity INT NOT NULL,
+    is_deleted BOOLEAN NOT NULL,
+    is_available BOOLEAN NOT NULL,
+    category_id BIGINT NOT NULL,
+    CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
+    );
+
+CREATE TABLE IF NOT EXISTS administrators (
+                                              id SERIAL PRIMARY KEY,
+                                              first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(20) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    is_deleted BOOLEAN NOT NULL
+    );
+
+CREATE TABLE IF NOT EXISTS waiters (
+                                       id SERIAL PRIMARY KEY,
+                                       first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    phone_number VARCHAR(20) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    is_deleted BOOLEAN NOT NULL
+    );
+
+CREATE TABLE IF NOT EXISTS orders (
+                                      id SERIAL PRIMARY KEY,
+                                      waiter_id BIGINT NOT NULL,
+                                      status VARCHAR(50) NOT NULL,
+    payment_status VARCHAR(50) NOT NULL,
+    total_amount INT NOT NULL,
+    create_time TIMESTAMP NOT NULL,
+    lead_time TIMESTAMP,
+    CONSTRAINT fk_waiter FOREIGN KEY (waiter_id) REFERENCES waiters(id) ON DELETE CASCADE
+    );
+
+CREATE TABLE IF NOT EXISTS order_details (
+                                             id SERIAL PRIMARY KEY,
+                                             order_id BIGINT NOT NULL,
+                                             dish_id BIGINT NOT NULL,
+                                             quantity INT NOT NULL,
+                                             total_amount INT NOT NULL,
+                                             CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    CONSTRAINT fk_dish FOREIGN KEY (dish_id) REFERENCES dishes(id) ON DELETE CASCADE
+    );
+
+CREATE TABLE IF NOT EXISTS rest_tables (
+                                           id SERIAL PRIMARY KEY,
+                                           number INT UNIQUE NOT NULL,
+                                           waiter_id BIGINT,
+                                           total_amount INT,
+                                           CONSTRAINT fk_waiter FOREIGN KEY (waiter_id) REFERENCES waiters(id) ON DELETE SET NULL
+    );
+
+CREATE TABLE IF NOT EXISTS rest_table_items (
+                                                id SERIAL PRIMARY KEY,
+                                                table_id BIGINT NOT NULL,
+                                                dish_id BIGINT NOT NULL,
+                                                quantity INT NOT NULL,
+                                                CONSTRAINT fk_table FOREIGN KEY (table_id) REFERENCES rest_tables(id) ON DELETE CASCADE,
+    CONSTRAINT fk_dish FOREIGN KEY (dish_id) REFERENCES dishes(id) ON DELETE CASCADE
+    );
+
+COPY categories(id, name, parent_id, is_deleted)
+    FROM '/docker-entrypoint-initdb.d/fulfillment/categories.csv'
+    DELIMITER ','
+    CSV HEADER;
+
+COPY dishes(id, name, description, price_per_one, stock_quantity, is_deleted, is_available, category_id)
+    FROM '/docker-entrypoint-initdb.d/fulfillment/dishes.csv'
+    DELIMITER ','
+    CSV HEADER;
+
+COPY rest_tables(id, number, waiter_id, total_amount)
+    FROM '/docker-entrypoint-initdb.d/fulfillment/rest_tables.csv'
+    DELIMITER ','
+    CSV HEADER;
