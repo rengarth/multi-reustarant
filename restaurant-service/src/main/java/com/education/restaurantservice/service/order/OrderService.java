@@ -1,17 +1,18 @@
 package com.education.restaurantservice.service.order;
 
 import com.education.kafkadto.dto.order.OrderDTO;
+import com.education.kafkadto.dto.order.OrderStatus;
+import com.education.kafkadto.dto.order.PaymentStatus;
 import com.education.restaurantservice.entity.employee.Waiter;
 import com.education.restaurantservice.entity.menu.Dish;
 import com.education.restaurantservice.entity.order.Order;
 import com.education.restaurantservice.entity.order.OrderDetail;
-import com.education.kafkadto.dto.order.OrderStatus;
-import com.education.kafkadto.dto.order.PaymentStatus;
 import com.education.restaurantservice.entity.table.RestTable;
 import com.education.restaurantservice.entity.table.RestTableItem;
 import com.education.restaurantservice.exception.order.OrderNotFoundException;
 import com.education.restaurantservice.repository.menu.DishRepository;
 import com.education.restaurantservice.repository.order.OrderRepository;
+import com.education.restaurantservice.repository.table.RestTableRepository;
 import com.education.restaurantservice.service.employee.WaiterService;
 import com.education.restaurantservice.service.table.RestTableService;
 import com.education.restaurantservice.util.OrderUtils;
@@ -30,6 +31,7 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final DishRepository dishRepository;
+    private final RestTableRepository restTableRepository;
     private final WaiterService waiterService;
     private final RestTableService restTableService;
     private final KafkaTemplate<String, OrderDTO> kafkaTemplate;
@@ -88,5 +90,24 @@ public class OrderService {
 
         OrderDTO orderDTO = OrderUtils.convertOrderToOrderDTO(order);
         kafkaTemplate.send("order-ready-for-payment", orderDTO);
+    }
+
+    @Transactional
+    public OrderDTO serveOrderToTable(Long orderId, Integer tableNumber) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new OrderNotFoundException("Order not found with id: " + orderId));
+        if (order.getPaymentStatus().equals(PaymentStatus.PAID)
+                && order.getStatus().equals(OrderStatus.READY)
+                && order.getWaiter().getId().equals(waiterService.getCurrentWaiter().getId())
+                && !order.getOrderDetails().isEmpty()) {
+            order.setStatus(OrderStatus.SERVED);
+            orderRepository.save(order);
+            RestTable table = restTableRepository.findByNumber(tableNumber)
+                    .orElseThrow(() -> new OrderNotFoundException("Table not found with number: " + tableNumber));
+            table.setWaiter(null);
+            restTableRepository.save(table);
+            return OrderUtils.convertOrderToOrderDTO(order);
+        }
+        else throw new IllegalArgumentException("Order is not ready to be served");
     }
 }

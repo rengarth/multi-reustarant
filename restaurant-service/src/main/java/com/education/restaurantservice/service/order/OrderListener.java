@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class OrderStatusListener {
+public class OrderListener {
 
     private final OrderRepository orderRepository;
 
 
-    @KafkaListener(topics = "order-status-updates", groupId = "order-service-group")
+    @KafkaListener(topics = "order-updates", groupId = "order-service-group")
     public void handleOrderStatusUpdate(OrderDTO orderDTO) {
         Order order =
                 orderRepository.findById(orderDTO
@@ -23,6 +23,7 @@ public class OrderStatusListener {
                         .orElseThrow(() -> new OrderNotFoundException("Order not found"));
             order.setPaymentStatus(orderDTO.getPaymentStatus());
             order.setStatus(orderDTO.getStatus());
+            order.setLeadTime(orderDTO.getLeadTime());
             orderRepository.save(order);
     }
 }

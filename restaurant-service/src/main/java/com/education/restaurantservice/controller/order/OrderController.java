@@ -28,4 +28,10 @@ public class OrderController {
         orderService.retryPayment(id);
         return ResponseEntity.ok("Order " + id + " sent for payment retry.");
     }
+
+    @PostMapping("/{id}/serve-to-table/{tableNumber}")
+    public ResponseEntity<OrderDTO> serveToTable(@PathVariable Long id, @PathVariable Integer tableNumber) {
+        OrderDTO orderDTO = orderService.serveOrderToTable(id, tableNumber);
+        return ResponseEntity.ok(orderDTO);
+    }
 }

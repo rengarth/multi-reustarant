@@ -1,4 +1,4 @@
-package com.education.paymentservice.config;
+package com.education.restaurantservice.config;
 
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.context.annotation.Bean;
@@ -15,6 +15,6 @@ public class KafkaTopicConfig {
 
     @Bean
     public NewTopic orderStatusUpdatesTopic() {
-        return TopicBuilder.name("order-status-updates").build();
+        return TopicBuilder.name("order-updates").build();
     }
 }

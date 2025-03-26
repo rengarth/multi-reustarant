@@ -5,10 +5,11 @@
         <groupId>com.education</groupId>
         <artifactId>liga-restaurant-project</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+
     </parent>
     <artifactId>kafka-dto</artifactId>
     <name>kafka-dto</name>
-    <url>http://maven.apache.org</url>
+    <packaging>jar</packaging>
     <dependencies>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

@@ -40,7 +40,8 @@ public class PaymentServiceListener {
 
             // Отправляем сообщение в Kafka с задержкой 3 секунды
             scheduler.schedule(() -> {
-                kafkaTemplate.send("order-status-updates", orderDTO);
+                kafkaTemplate.send("order-updates", orderDTO);
+                kafkaTemplate.send("order-cooking", orderDTO);
                 log.info("Order {} sent to kitchen.", orderDTO.getId());
             }, 3, TimeUnit.SECONDS);
         }

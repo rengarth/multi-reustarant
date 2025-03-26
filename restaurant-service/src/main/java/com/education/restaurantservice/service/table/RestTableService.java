@@ -90,7 +90,7 @@ public class RestTableService {
         return RestTableUtils.convertRestTableToRestTableDTO(table);
     }
 
-    public RestTableDTO getTableDTO(Integer number) {
+    public RestTableDTO getTable(Integer number) {
         RestTable table = getTableOfCurrentWaiter(number);
         return RestTableUtils.convertRestTableToRestTableDTO(table);
     }

@@ -1,0 +1,18 @@
+server:
+  port: 8081
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*" #<2>
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+spring:
+  kafka:
+    bootstrap-servers: host.docker.internal:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
