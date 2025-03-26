@@ -33,12 +33,12 @@ public class PaymentServiceListener {
         }
         else if (orderDTO.getStatus().equals(OrderStatus.CREATED)
                 && orderDTO.getPaymentStatus().equals(PaymentStatus.NOT_PAID)){
+            log.info("Processing payment for order id: {}...", orderDTO.getId());
             paymentTransactionService.createPaymentTransaction(orderDTO, TransactionStatus.SUCCESS);
             orderDTO.setPaymentStatus(PaymentStatus.PAID);
             orderDTO.setStatus(OrderStatus.SENT_TO_KITCHEN);
             log.info("Order {} payment successful. Waiting 3 seconds before sending to Kafka...", orderDTO.getId());
 
-            // Отправляем сообщение в Kafka с задержкой 3 секунды
             scheduler.schedule(() -> {
                 kafkaTemplate.send("order-updates", orderDTO);
                 kafkaTemplate.send("order-cooking", orderDTO);
@@ -46,9 +46,10 @@ public class PaymentServiceListener {
             }, 3, TimeUnit.SECONDS);
         }
         else {
-            log.error("Order statuses is incorrect. Payment aborted for order id: {}", orderDTO.getId());
+            log.error("Order statuses are incorrect. Payment aborted for order id: {}", orderDTO.getId());
             paymentTransactionService.createPaymentTransaction(orderDTO, TransactionStatus.FAILED);
         }
     }
 }
+
 
