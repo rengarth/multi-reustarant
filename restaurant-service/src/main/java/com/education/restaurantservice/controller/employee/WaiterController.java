@@ -3,6 +3,7 @@ package com.education.restaurantservice.controller.employee;
 import com.education.restaurantservice.dto.employee.ChangeEmployeeDataRequestDTO;
 import com.education.restaurantservice.dto.employee.ChangePasswordRequestDTO;
 import com.education.restaurantservice.dto.employee.WaiterDTO;
+import com.education.restaurantservice.dto.order.OrderDTO;
 import com.education.restaurantservice.service.employee.WaiterService;
 import com.education.restaurantservice.util.EmployeeUtils;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -24,10 +26,10 @@ public class WaiterController {
         return ResponseEntity.ok(EmployeeUtils.convertWaiterToWaiterDTO(waiterService.getCurrentWaiter()));
     }
 
-//    @GetMapping("/current/orders")
-//    public ResponseEntity<List<OrderDTO>> getCurrentWaiterOrders() {
-//        return ResponseEntity.ok(waiterService.getCurrentWaiterOrders());
-//    }
+    @GetMapping("/current/orders")
+    public ResponseEntity<List<OrderDTO>> getCurrentWaiterOrders() {
+        return ResponseEntity.ok(waiterService.getCurrentWaiterOrders());
+    }
 
     @PutMapping("/current/change-password")
     public ResponseEntity<Map<String, String>> changePassword(@RequestBody ChangePasswordRequestDTO request) {

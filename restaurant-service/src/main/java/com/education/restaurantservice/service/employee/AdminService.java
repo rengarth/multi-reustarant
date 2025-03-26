@@ -37,11 +37,6 @@ public class AdminService {
         return EmployeeUtils.convertWaiterToWaiterDTO(waiter);
     }
 
-//    public List<OrderDTO> getWaiterOrders(Long id) {
-//        WaiterDTO waiterDTO = getWaiterById(id);
-//        return waiterDTO.getOrders();
-//    }
-
     public WaiterDTO createWaiter(WaiterRegistrationDTO registrationDTO) {
         EmployeeUtils.validatePhoneNumber(registrationDTO.getPhoneNumber());
         EmployeeUtils.checkPhoneNumberExists(registrationDTO.getPhoneNumber(), waiterRepository, adminRepository);

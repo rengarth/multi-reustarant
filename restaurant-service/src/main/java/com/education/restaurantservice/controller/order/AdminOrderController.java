@@ -31,4 +31,10 @@ public class AdminOrderController {
         return ResponseEntity.ok(order);
     }
 
+    @GetMapping("/waiter/{id}")
+    public ResponseEntity<List<OrderDTO>> getWaiterOrders(@PathVariable Long id) {
+        List<OrderDTO> orders = adminOrderService.getWaiterOrders(id);
+        return ResponseEntity.ok(orders);
+    }
+
 }

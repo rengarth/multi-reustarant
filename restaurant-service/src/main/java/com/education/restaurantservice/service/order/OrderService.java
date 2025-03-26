@@ -13,6 +13,7 @@ import com.education.restaurantservice.repository.order.OrderRepository;
 import com.education.restaurantservice.service.employee.WaiterService;
 import com.education.restaurantservice.service.table.RestTableService;
 import com.education.restaurantservice.util.OrderUtils;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +30,12 @@ public class OrderService {
     private final WaiterService waiterService;
     private final RestTableService restTableService;
 
-    public OrderDTO createTableOrder(Integer number) {
+    @Transactional
+    public OrderDTO createTableOrder(Integer tableNumber) {
         Order order = new Order();
-        RestTable table = restTableService.getTableOfCurrentWaiter(number);
+        RestTable table = restTableService.getTableOfCurrentWaiter(tableNumber);
         if (table.getTableItems().isEmpty()) {
-            throw new IllegalArgumentException("No items found on table: " + number);
+            throw new IllegalArgumentException("No items found on table: " + tableNumber);
         }
         order.setWaiter(waiterService.getCurrentWaiter());
         order.setStatus(OrderStatus.CREATED);
@@ -61,6 +63,7 @@ public class OrderService {
             dish.setStockQuantity(remainingStock);
             dishRepository.save(dish);
         });
+        restTableService.clearTable(tableNumber);
         return OrderUtils.convertOrderToOrderDTO(order);
     }
 }

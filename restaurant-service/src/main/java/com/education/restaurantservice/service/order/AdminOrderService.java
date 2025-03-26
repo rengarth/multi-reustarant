@@ -26,4 +26,12 @@ public class AdminOrderService {
                 () -> new OrderNotFoundException("Order with id: " + id + " not found"));
         return OrderUtils.convertOrderToOrderDTO(order);
     }
+
+    public List<OrderDTO> getWaiterOrders(Long id) {
+        return orderRepository
+                .findOrdersByWaiterId(id)
+                .stream()
+                .map(OrderUtils::convertOrderToOrderDTO)
+                .toList();
+    }
 }
