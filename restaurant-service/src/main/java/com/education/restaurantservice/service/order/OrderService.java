@@ -10,6 +10,8 @@ import com.education.restaurantservice.entity.order.OrderDetail;
 import com.education.restaurantservice.entity.table.RestTable;
 import com.education.restaurantservice.entity.table.RestTableItem;
 import com.education.restaurantservice.exception.order.OrderNotFoundException;
+import com.education.restaurantservice.exception.table.RestTableIsNotAssignedException;
+import com.education.restaurantservice.exception.table.RestTableNotFoundException;
 import com.education.restaurantservice.repository.menu.DishRepository;
 import com.education.restaurantservice.repository.order.OrderRepository;
 import com.education.restaurantservice.repository.table.RestTableRepository;
@@ -97,21 +99,38 @@ public class OrderService {
     public OrderDTO serveOrderToTable(Long orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new OrderNotFoundException("Order not found with id: " + orderId));
+
         Integer tableNumber = order.getTableNumber();
-        if (order.getPaymentStatus().equals(PaymentStatus.PAID)
-                && order.getStatus().equals(OrderStatus.READY)
-                && order.getWaiter().getId().equals(waiterService.getCurrentWaiter().getId())
+        Waiter currentWaiter = waiterService.getCurrentWaiter();
+
+        RestTable table = restTableRepository.findByNumber(tableNumber)
+                .orElseThrow(() -> new RestTableNotFoundException("Table not found with number: " + tableNumber));
+
+        if (table.getWaiter() == null || !table.getWaiter().getId().equals(currentWaiter.getId())) {
+            throw new RestTableIsNotAssignedException("Table is no longer assigned to the current waiter.");
+        }
+
+        if (order.getPaymentStatus() == PaymentStatus.PAID
+                && order.getStatus() == OrderStatus.READY
+                && order.getWaiter().getId().equals(currentWaiter.getId())
+                && order.getOrderDetails() != null
                 && !order.getOrderDetails().isEmpty()) {
+
             order.setStatus(OrderStatus.SERVED);
             orderRepository.save(order);
-            RestTable table = restTableRepository.findByNumber(tableNumber)
-                    .orElseThrow(
-                            () -> new OrderNotFoundException(
-                                    "Table not found with number: " + tableNumber));
-            table.setWaiter(null);
+
+            List<Order> ordersForTable = orderRepository.findByTableNumberAndWaiterId(tableNumber, currentWaiter.getId());
+            ordersForTable.removeIf(o -> o.getId().equals(order.getId()));
+            boolean hasActiveOrders = ordersForTable.stream()
+                    .anyMatch(o -> o.getStatus() != OrderStatus.SERVED && o.getStatus() != OrderStatus.CANCELLED);
+            if (!hasActiveOrders) {
+                table.setWaiter(null);
+            }
             restTableRepository.save(table);
             return OrderUtils.convertOrderToOrderDTO(order);
+        } else {
+            throw new IllegalArgumentException("Order is not ready to be served");
         }
-        else throw new IllegalArgumentException("Order is not ready to be served");
     }
 }
+

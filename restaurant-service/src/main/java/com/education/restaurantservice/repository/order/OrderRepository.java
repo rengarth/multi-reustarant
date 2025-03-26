@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findOrdersByWaiterId(Long waiterId);
+    List<Order> findByTableNumberAndWaiterId(Integer tableNumber, Long waiterId);
 }
