@@ -97,16 +97,17 @@ public class OrderService {
     public OrderDTO serveOrderToTable(Long orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new OrderNotFoundException("Order not found with id: " + orderId));
+        Integer tableNumber = order.getTableNumber();
         if (order.getPaymentStatus().equals(PaymentStatus.PAID)
                 && order.getStatus().equals(OrderStatus.READY)
                 && order.getWaiter().getId().equals(waiterService.getCurrentWaiter().getId())
                 && !order.getOrderDetails().isEmpty()) {
             order.setStatus(OrderStatus.SERVED);
             orderRepository.save(order);
-            RestTable table = restTableRepository.findByNumber(order.getTableNumber())
+            RestTable table = restTableRepository.findByNumber(tableNumber)
                     .orElseThrow(
                             () -> new OrderNotFoundException(
-                                    "Table not found with number: " + order.getTableNumber()));
+                                    "Table not found with number: " + tableNumber));
             table.setWaiter(null);
             restTableRepository.save(table);
             return OrderUtils.convertOrderToOrderDTO(order);
