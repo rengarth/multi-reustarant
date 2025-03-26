@@ -18,11 +18,11 @@ public class PaymentTransactionService {
 
     private final PaymentTransactionRepository paymentTransactionRepository;
 
-    public PaymentTransactionDTO createPaymentTransaction(OrderDTO orderDTO) {
+    public PaymentTransactionDTO createPaymentTransaction(OrderDTO orderDTO, TransactionStatus status) {
         PaymentTransaction paymentTransaction = new PaymentTransaction();
         paymentTransaction.setOrderId(orderDTO.getId());
         paymentTransaction.setAmount(orderDTO.getTotalAmount());
-        paymentTransaction.setTransactionStatus(TransactionStatus.SUCCESS);
+        paymentTransaction.setTransactionStatus(status);
         paymentTransaction.setTransactionTime(LocalDateTime.now());
         paymentTransactionRepository.save(paymentTransaction);
         return PaymentTransactionUtils.convertTransactionToDTO(paymentTransaction);
