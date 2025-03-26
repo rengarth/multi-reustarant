@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RunKitchen {
+public class RunKitchenService {
     public static void main(String[] args) {
-        SpringApplication.run(RunKitchen.class, args);
+        SpringApplication.run(RunKitchenService.class, args);
     }
 }

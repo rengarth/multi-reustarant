@@ -14,7 +14,12 @@ public class KafkaTopicConfig {
     }
 
     @Bean
-    public NewTopic orderStatusUpdatesTopic() {
+    public NewTopic orderUpdatesTopic() {
         return TopicBuilder.name("order-updates").build();
+    }
+
+    @Bean
+    public NewTopic orderCookingTopic() {
+        return TopicBuilder.name("order-cooking").build();
     }
 }
