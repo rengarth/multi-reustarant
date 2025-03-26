@@ -1,6 +1,7 @@
 package com.education.restaurantservice.service.order;
 
 import com.education.kafkadto.dto.order.OrderDTO;
+import com.education.restaurantservice.entity.employee.Waiter;
 import com.education.restaurantservice.entity.menu.Dish;
 import com.education.restaurantservice.entity.order.Order;
 import com.education.restaurantservice.entity.order.OrderDetail;
@@ -8,6 +9,7 @@ import com.education.kafkadto.dto.order.OrderStatus;
 import com.education.kafkadto.dto.order.PaymentStatus;
 import com.education.restaurantservice.entity.table.RestTable;
 import com.education.restaurantservice.entity.table.RestTableItem;
+import com.education.restaurantservice.exception.order.OrderNotFoundException;
 import com.education.restaurantservice.repository.menu.DishRepository;
 import com.education.restaurantservice.repository.order.OrderRepository;
 import com.education.restaurantservice.service.employee.WaiterService;
@@ -15,6 +17,7 @@ import com.education.restaurantservice.service.table.RestTableService;
 import com.education.restaurantservice.util.OrderUtils;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -29,6 +32,7 @@ public class OrderService {
     private final DishRepository dishRepository;
     private final WaiterService waiterService;
     private final RestTableService restTableService;
+    private final KafkaTemplate<String, OrderDTO> kafkaTemplate;
 
     @Transactional
     public OrderDTO createTableOrder(Integer tableNumber) {
@@ -64,6 +68,25 @@ public class OrderService {
             dishRepository.save(dish);
         });
         restTableService.clearTable(tableNumber);
-        return OrderUtils.convertOrderToOrderDTO(order);
+
+        OrderDTO orderDTO = OrderUtils.convertOrderToOrderDTO(order);
+        kafkaTemplate.send("order-ready-for-payment", orderDTO);
+        return orderDTO;
+    }
+
+    @Transactional
+    public void retryPayment(Long orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new OrderNotFoundException("Order not found with id: " + orderId));
+        Waiter currentWaiter = waiterService.getCurrentWaiter();
+        if (!order.getWaiter().getId().equals(currentWaiter.getId())) {
+            throw new IllegalArgumentException("You can only retry payment for your own orders.");
+        }
+        if (order.getPaymentStatus() == PaymentStatus.PAID) {
+            throw new IllegalArgumentException("Order is already paid.");
+        }
+
+        OrderDTO orderDTO = OrderUtils.convertOrderToOrderDTO(order);
+        kafkaTemplate.send("order-ready-for-payment", orderDTO);
     }
 }

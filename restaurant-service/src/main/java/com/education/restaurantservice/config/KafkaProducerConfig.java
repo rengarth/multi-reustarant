@@ -1,4 +1,4 @@
-package com.education.paymentservice.config;
+package com.education.restaurantservice.config;
 
 import com.education.kafkadto.dto.order.OrderDTO;
 import org.springframework.kafka.support.serializer.JsonSerializer;

@@ -22,4 +22,10 @@ public class OrderController {
         OrderDTO orderDTO = orderService.createTableOrder(tableNumber);
         return ResponseEntity.ok(orderDTO);
     }
+
+    @PostMapping("/{id}/retry-payment")
+    public ResponseEntity<String> retryPayment(@PathVariable Long id) {
+        orderService.retryPayment(id);
+        return ResponseEntity.ok("Order " + id + " sent for payment retry.");
+    }
 }

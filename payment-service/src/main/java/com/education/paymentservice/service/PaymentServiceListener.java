@@ -10,6 +10,10 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -17,6 +21,7 @@ public class PaymentServiceListener {
 
     private final PaymentTransactionService paymentTransactionService;
     private final KafkaTemplate<String, OrderDTO> kafkaTemplate;
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     @KafkaListener(topics = "order-ready-for-payment", groupId = "payment-group")
     public void processPayment(OrderDTO orderDTO) {
@@ -31,10 +36,14 @@ public class PaymentServiceListener {
             paymentTransactionService.createPaymentTransaction(orderDTO, TransactionStatus.SUCCESS);
             orderDTO.setPaymentStatus(PaymentStatus.PAID);
             orderDTO.setStatus(OrderStatus.SENT_TO_KITCHEN);
-            kafkaTemplate.send("order-status-updates", orderDTO);
-            log.info("Order {} payment successful. Sent to kitchen.", orderDTO.getId());
-        }
+            log.info("Order {} payment successful. Waiting 3 seconds before sending to Kafka...", orderDTO.getId());
 
+            // Отправляем сообщение в Kafka с задержкой 3 секунды
+            scheduler.schedule(() -> {
+                kafkaTemplate.send("order-status-updates", orderDTO);
+                log.info("Order {} sent to kitchen.", orderDTO.getId());
+            }, 3, TimeUnit.SECONDS);
+        }
         else {
             log.error("Order statuses is incorrect. Payment aborted for order id: {}", orderDTO.getId());
             paymentTransactionService.createPaymentTransaction(orderDTO, TransactionStatus.FAILED);
