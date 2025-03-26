@@ -14,6 +14,7 @@ public class OrderUtils {
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setId(order.getId());
         orderDTO.setWaiter(EmployeeUtils.convertWaiterToWaiterDTO(order.getWaiter()));
+        orderDTO.setTableNumber(order.getTableNumber());
         orderDTO.setStatus(order.getStatus());
         orderDTO.setPaymentStatus(order.getPaymentStatus());
         orderDTO.setTotalAmount(order.getTotalAmount());

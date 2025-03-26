@@ -10,6 +10,7 @@ import java.util.List;
 public class OrderDTO {
     private Long id;
     private WaiterDTO waiter;
+    private Integer tableNumber;
     private List<OrderDetailDTO> orderDetails;
     private OrderStatus status;
     private PaymentStatus paymentStatus;

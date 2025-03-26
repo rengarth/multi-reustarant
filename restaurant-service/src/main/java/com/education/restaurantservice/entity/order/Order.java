@@ -26,6 +26,9 @@ public class Order {
     @JoinColumn(name = "waiter_id", nullable = false)
     private Waiter waiter;
 
+    @Column(name = "table_number")
+    private Integer tableNumber;
+
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderDetail> orderDetails = new ArrayList<>();
 

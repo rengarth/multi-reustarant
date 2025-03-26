@@ -44,6 +44,7 @@ public class OrderService {
             throw new IllegalArgumentException("No items found on table: " + tableNumber);
         }
         order.setWaiter(waiterService.getCurrentWaiter());
+        order.setTableNumber(tableNumber);
         order.setStatus(OrderStatus.CREATED);
         order.setPaymentStatus(PaymentStatus.NOT_PAID);
         order.setTotalAmount(table.getTotalAmount());
@@ -93,7 +94,7 @@ public class OrderService {
     }
 
     @Transactional
-    public OrderDTO serveOrderToTable(Long orderId, Integer tableNumber) {
+    public OrderDTO serveOrderToTable(Long orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new OrderNotFoundException("Order not found with id: " + orderId));
         if (order.getPaymentStatus().equals(PaymentStatus.PAID)
@@ -102,8 +103,10 @@ public class OrderService {
                 && !order.getOrderDetails().isEmpty()) {
             order.setStatus(OrderStatus.SERVED);
             orderRepository.save(order);
-            RestTable table = restTableRepository.findByNumber(tableNumber)
-                    .orElseThrow(() -> new OrderNotFoundException("Table not found with number: " + tableNumber));
+            RestTable table = restTableRepository.findByNumber(order.getTableNumber())
+                    .orElseThrow(
+                            () -> new OrderNotFoundException(
+                                    "Table not found with number: " + order.getTableNumber()));
             table.setWaiter(null);
             restTableRepository.save(table);
             return OrderUtils.convertOrderToOrderDTO(order);

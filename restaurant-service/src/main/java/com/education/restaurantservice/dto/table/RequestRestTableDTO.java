@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestRestTableDTO {
-    private Integer tableNumber;
     private Long dishId;
     private Integer quantity;
 }

@@ -29,9 +29,9 @@ public class OrderController {
         return ResponseEntity.ok("Order " + id + " sent for payment retry.");
     }
 
-    @PostMapping("/{id}/serve-to-table/{tableNumber}")
-    public ResponseEntity<OrderDTO> serveToTable(@PathVariable Long id, @PathVariable Integer tableNumber) {
-        OrderDTO orderDTO = orderService.serveOrderToTable(id, tableNumber);
+    @PostMapping("/{orderId}/serve-to-table")
+    public ResponseEntity<OrderDTO> serveOrderToTable(@PathVariable Long orderId) {
+        OrderDTO orderDTO = orderService.serveOrderToTable(orderId);
         return ResponseEntity.ok(orderDTO);
     }
 }
