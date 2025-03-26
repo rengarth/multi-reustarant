@@ -1,6 +1,6 @@
 package com.education.restaurantservice.service.menu;
 
-import com.education.restaurantservice.dto.menu.DishDTO;
+import com.education.kafkadto.dto.menu.DishDTO;
 import com.education.restaurantservice.entity.menu.Dish;
 import com.education.restaurantservice.exception.menu.DishIsDeletedException;
 import com.education.restaurantservice.exception.menu.DishIsUnavailableException;

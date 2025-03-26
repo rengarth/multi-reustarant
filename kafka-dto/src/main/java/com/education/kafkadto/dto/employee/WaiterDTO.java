@@ -1,4 +1,4 @@
-package com.education.restaurantservice.dto.employee;
+package com.education.kafkadto.dto.employee;
 
 import lombok.Data;
 

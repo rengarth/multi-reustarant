@@ -1,4 +1,4 @@
-package com.education.restaurantservice.dto.menu;
+package com.education.kafkadto.dto.menu;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

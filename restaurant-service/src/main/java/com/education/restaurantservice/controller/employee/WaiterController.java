@@ -2,8 +2,8 @@ package com.education.restaurantservice.controller.employee;
 
 import com.education.restaurantservice.dto.employee.ChangeEmployeeDataRequestDTO;
 import com.education.restaurantservice.dto.employee.ChangePasswordRequestDTO;
-import com.education.restaurantservice.dto.employee.WaiterDTO;
-import com.education.restaurantservice.dto.order.OrderDTO;
+import com.education.kafkadto.dto.employee.WaiterDTO;
+import com.education.kafkadto.dto.order.OrderDTO;
 import com.education.restaurantservice.service.employee.WaiterService;
 import com.education.restaurantservice.util.EmployeeUtils;
 import lombok.RequiredArgsConstructor;

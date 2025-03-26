@@ -1,6 +1,6 @@
 package com.education.restaurantservice.controller.menu;
 
-import com.education.restaurantservice.dto.menu.DishDTO;
+import com.education.kafkadto.dto.menu.DishDTO;
 import com.education.restaurantservice.service.menu.DishService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

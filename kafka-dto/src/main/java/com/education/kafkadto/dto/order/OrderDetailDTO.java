@@ -1,6 +1,6 @@
-package com.education.restaurantservice.dto.order;
+package com.education.kafkadto.dto.order;
 
-import com.education.restaurantservice.dto.menu.DishDTO;
+import com.education.kafkadto.dto.menu.DishDTO;
 import lombok.Data;
 
 @Data

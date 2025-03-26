@@ -1,4 +1,4 @@
-package com.education.restaurantservice.entity.order;
+package com.education.kafkadto.dto.order;
 
 public enum PaymentStatus {
     NOT_PAID,

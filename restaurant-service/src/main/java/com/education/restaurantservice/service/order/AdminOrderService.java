@@ -1,6 +1,6 @@
 package com.education.restaurantservice.service.order;
 
-import com.education.restaurantservice.dto.order.OrderDTO;
+import com.education.kafkadto.dto.order.OrderDTO;
 import com.education.restaurantservice.entity.order.Order;
 import com.education.restaurantservice.exception.order.OrderNotFoundException;
 import com.education.restaurantservice.repository.order.OrderRepository;

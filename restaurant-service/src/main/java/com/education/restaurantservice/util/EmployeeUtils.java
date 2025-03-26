@@ -2,7 +2,7 @@ package com.education.restaurantservice.util;
 
 import com.education.restaurantservice.dto.employee.AdminDTO;
 import com.education.restaurantservice.dto.employee.ChangeEmployeeDataRequestDTO;
-import com.education.restaurantservice.dto.employee.WaiterDTO;
+import com.education.kafkadto.dto.employee.WaiterDTO;
 import com.education.restaurantservice.entity.employee.Admin;
 import com.education.restaurantservice.entity.employee.Employee;
 import com.education.restaurantservice.entity.employee.Waiter;

@@ -1,8 +1,6 @@
-package com.education.restaurantservice.dto.order;
+package com.education.kafkadto.dto.order;
 
-import com.education.restaurantservice.dto.employee.WaiterDTO;
-import com.education.restaurantservice.entity.order.OrderStatus;
-import com.education.restaurantservice.entity.order.PaymentStatus;
+import com.education.kafkadto.dto.employee.WaiterDTO;
 import lombok.Data;
 
 import java.time.LocalDateTime;

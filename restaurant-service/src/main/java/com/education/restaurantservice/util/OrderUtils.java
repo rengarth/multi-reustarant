@@ -1,7 +1,7 @@
 package com.education.restaurantservice.util;
 
-import com.education.restaurantservice.dto.order.OrderDTO;
-import com.education.restaurantservice.dto.order.OrderDetailDTO;
+import com.education.kafkadto.dto.order.OrderDTO;
+import com.education.kafkadto.dto.order.OrderDetailDTO;
 import com.education.restaurantservice.entity.order.Order;
 import com.education.restaurantservice.entity.order.OrderDetail;
 

@@ -1,5 +1,7 @@
 package com.education.restaurantservice.entity.order;
 
+import com.education.kafkadto.dto.order.OrderStatus;
+import com.education.kafkadto.dto.order.PaymentStatus;
 import com.education.restaurantservice.entity.employee.Waiter;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -38,10 +40,10 @@ public class Order {
     @Column(name = "total_amount")
     private int totalAmount;
 
-    @Column(name = "create_time")
+    @Column(name = "create_time", nullable = false)
     private LocalDateTime createTime;
 
-    @Column(name = "lead_time", nullable = true)
+    @Column(name = "lead_time")
     private LocalDateTime leadTime;
 }
 

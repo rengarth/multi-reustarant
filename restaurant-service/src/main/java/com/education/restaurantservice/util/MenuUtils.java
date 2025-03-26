@@ -1,7 +1,7 @@
 package com.education.restaurantservice.util;
 
-import com.education.restaurantservice.dto.menu.CategoryDTO;
-import com.education.restaurantservice.dto.menu.DishDTO;
+import com.education.kafkadto.dto.menu.CategoryDTO;
+import com.education.kafkadto.dto.menu.DishDTO;
 import com.education.restaurantservice.entity.menu.Category;
 import com.education.restaurantservice.entity.menu.Dish;
 

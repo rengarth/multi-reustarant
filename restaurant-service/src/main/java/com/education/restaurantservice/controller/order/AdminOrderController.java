@@ -1,6 +1,6 @@
 package com.education.restaurantservice.controller.order;
 
-import com.education.restaurantservice.dto.order.OrderDTO;
+import com.education.kafkadto.dto.order.OrderDTO;
 import com.education.restaurantservice.service.order.AdminOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

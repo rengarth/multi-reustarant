@@ -1,11 +1,11 @@
 package com.education.restaurantservice.service.order;
 
-import com.education.restaurantservice.dto.order.OrderDTO;
+import com.education.kafkadto.dto.order.OrderDTO;
 import com.education.restaurantservice.entity.menu.Dish;
 import com.education.restaurantservice.entity.order.Order;
 import com.education.restaurantservice.entity.order.OrderDetail;
-import com.education.restaurantservice.entity.order.OrderStatus;
-import com.education.restaurantservice.entity.order.PaymentStatus;
+import com.education.kafkadto.dto.order.OrderStatus;
+import com.education.kafkadto.dto.order.PaymentStatus;
 import com.education.restaurantservice.entity.table.RestTable;
 import com.education.restaurantservice.entity.table.RestTableItem;
 import com.education.restaurantservice.repository.menu.DishRepository;

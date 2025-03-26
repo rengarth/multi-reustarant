@@ -1,4 +1,4 @@
-package com.education.restaurantservice.dto.menu;
+package com.education.kafkadto.dto.menu;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
