@@ -2,9 +2,9 @@ version: '3.8'
 services:
   database:
     ports:
-      - '5432:5432'
+      - '5433:5433'
     image: postgres:latest
-    container_name: 'postgres-restaurant-service-db'
+    container_name: 'postgres-payment-service-db'
     volumes:
       - './init:/docker-entrypoint-initdb.d'
     environment:
@@ -12,17 +12,17 @@ services:
       - 'POSTGRES_USER=postgres'
       - 'POSTGRES_PASSWORD=0'
       - 'POSTGRES_ROOT_PASSWORD=0'
-      - 'POSTGRES_DB=restaurant_service_db'
+      - 'POSTGRES_DB=payment_service_db'
       - 'PGDATA=/var/lib/postgresql/data'
 
   application:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: 'liga-restaurant-service'
+    container_name: 'liga-restaurant-payment-service'
     environment:
-      - 'spring.datasource.url=jdbc:postgresql://database:5432/restaurant_service_db'
+      - 'spring.datasource.url=jdbc:postgresql://database:5432/payment_service_db'
     ports:
-      - '8080:8080'
+      - '8081:8081'
     depends_on:
       - database

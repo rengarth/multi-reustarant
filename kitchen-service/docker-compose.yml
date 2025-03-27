@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+
+  application:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: 'liga-restaurant-kitchen-service'
+    ports:
+      - '8082:8082'

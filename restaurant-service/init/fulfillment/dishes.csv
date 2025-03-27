@@ -1,15 +1,15 @@
 id,description,is_deleted,name,price_per_one,stock_quantity,category_id,is_available
-1,A hearty Russian soup with assorted meats and pickles.,false,Solyanka,500,10,2,false
-3,A traditional beet soup served hot with sour cream.,false,Borscht,550,10,2,false
-2,Simple noodle dish with a light broth and vegetables.,false,Noodles,400,10,2,false
-11,"Natural grape juice, rich in antioxidants and flavor.",false,Grape Juice,350,10,6,false
-10,Pure apple juice with a sweet and refreshing flavor.,false,Apple Juice,300,10,6,false
-9,Freshly squeezed orange juice with a tangy taste.,false,Orange Juice,300,10,6,false
-13,Classic lager beer with a crisp and refreshing finish.,false,Beer,500,10,5,false
-12,Fine red wine with a rich bouquet and smooth taste.,false,Red Wine,1000,10,5,false
-14,"Strong and pure vodka, perfect for toasts.",false,Vodka,700,10,5,false
-6,Classic Italian pasta with creamy sauce and pancetta.,false,Pasta Carbonara,1000,10,3,false
-4,Tender grilled chicken served with seasonal vegetables.,false,Grilled Chicken,1200,10,3,false
-5,Juicy beef steak cooked to perfection with a side of fries.,false,Beef Steak,1500,10,3,false
-7,Crispy battered fish served with thick-cut fries.,false,Fish and Chips,1300,10,3,false
-8,Spicy curry loaded with fresh vegetables and aromatic spices.,false,Vegetable Curry,1100,10,3,false
+1,A hearty Russian soup with assorted meats and pickles.,false,Solyanka,500,10,2,true
+3,A traditional beet soup served hot with sour cream.,false,Borscht,550,10,2,true
+2,Simple noodle dish with a light broth and vegetables.,false,Noodles,400,10,2,true
+11,"Natural grape juice, rich in antioxidants and flavor.",false,Grape Juice,350,10,6,true
+10,Pure apple juice with a sweet and refreshing flavor.,false,Apple Juice,300,10,6,true
+9,Freshly squeezed orange juice with a tangy taste.,false,Orange Juice,300,10,6,true
+13,Classic lager beer with a crisp and refreshing finish.,false,Beer,500,10,5,true
+12,Fine red wine with a rich bouquet and smooth taste.,false,Red Wine,1000,10,5,true
+14,"Strong and pure vodka, perfect for toasts.",false,Vodka,700,10,5,true
+6,Classic Italian pasta with creamy sauce and pancetta.,false,Pasta Carbonara,1000,10,3,true
+4,Tender grilled chicken served with seasonal vegetables.,false,Grilled Chicken,1200,10,3,true
+5,Juicy beef steak cooked to perfection with a side of fries.,false,Beef Steak,1500,10,3,true
+7,Crispy battered fish served with thick-cut fries.,false,Fish and Chips,1300,10,3,true
+8,Spicy curry loaded with fresh vegetables and aromatic spices.,false,Vegetable Curry,1100,10,3,true

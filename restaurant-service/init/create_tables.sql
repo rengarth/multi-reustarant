@@ -74,6 +74,16 @@ CREATE TABLE IF NOT EXISTS table_items (
     CONSTRAINT fk_dish FOREIGN KEY (dish_id) REFERENCES dishes(id) ON DELETE CASCADE
     );
 
+CREATE TABLE IF NOT EXISTS table_items_list (
+                                                table_id BIGINT NOT NULL,
+                                                table_item_id BIGINT NOT NULL,
+                                                CONSTRAINT fk_table FOREIGN KEY (table_id) REFERENCES tables(id) ON DELETE CASCADE,
+                                                CONSTRAINT fk_table_item FOREIGN KEY (table_item_id) REFERENCES table_items(id) ON DELETE CASCADE,
+                                                PRIMARY KEY (table_id, table_item_id)
+
+);
+
+
 COPY categories(id, is_deleted, name, parent_id)
     FROM '/docker-entrypoint-initdb.d/fulfillment/categories.csv'
     DELIMITER ','
