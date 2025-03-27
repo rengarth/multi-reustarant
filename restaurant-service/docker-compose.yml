@@ -2,7 +2,7 @@ version: '3.8'
 services:
   database:
     ports:
-      - '5432:5432'
+      - '5433:5432'
     image: postgres:latest
     container_name: 'postgres-restaurant-service-db'
     volumes:

@@ -66,22 +66,18 @@ CREATE TABLE IF NOT EXISTS tables (
     );
 
 CREATE TABLE IF NOT EXISTS table_items (
-                                                id SERIAL PRIMARY KEY,
-                                                table_id BIGINT NOT NULL,
-                                                dish_id BIGINT NOT NULL,
-                                                quantity INT NOT NULL,
-                                                CONSTRAINT fk_table FOREIGN KEY (table_id) REFERENCES tables (id) ON DELETE CASCADE,
-    CONSTRAINT fk_dish FOREIGN KEY (dish_id) REFERENCES dishes(id) ON DELETE CASCADE
-    );
+                                           id SERIAL PRIMARY KEY,
+                                           dish_id BIGINT NOT NULL,
+                                           quantity INT NOT NULL
+);
 
 CREATE TABLE IF NOT EXISTS table_items_list (
                                                 table_id BIGINT NOT NULL,
                                                 table_item_id BIGINT NOT NULL,
                                                 CONSTRAINT fk_table FOREIGN KEY (table_id) REFERENCES tables(id) ON DELETE CASCADE,
-                                                CONSTRAINT fk_table_item FOREIGN KEY (table_item_id) REFERENCES table_items(id) ON DELETE CASCADE,
-                                                PRIMARY KEY (table_id, table_item_id)
-
-);
+    CONSTRAINT fk_table_item FOREIGN KEY (table_item_id) REFERENCES table_items(id) ON DELETE CASCADE,
+    PRIMARY KEY (table_id, table_item_id)
+    );
 
 
 COPY categories(id, is_deleted, name, parent_id)
