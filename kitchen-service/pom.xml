@@ -3,32 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.education</groupId>
-        <artifactId>liga-restaurant-project</artifactId>
+        <artifactId>dependency-bom</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../dependency-bom/pom.xml</relativePath>
     </parent>
     <artifactId>kitchen-service</artifactId>
     <packaging>jar</packaging>
     <name>kitchen</name>
-    <url>http://maven.apache.org</url>
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.15.3</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.education</groupId>
-            <artifactId>kafka-dto</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-    </dependencies>
 </project>
