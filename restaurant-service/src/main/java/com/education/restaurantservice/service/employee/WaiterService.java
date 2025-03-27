@@ -4,13 +4,17 @@ import com.education.kafkadto.dto.employee.WaiterDTO;
 import com.education.kafkadto.dto.order.OrderDTO;
 import com.education.restaurantservice.dto.employee.ChangeEmployeeDataRequestDTO;
 import com.education.restaurantservice.dto.employee.ChangePasswordRequestDTO;
+import com.education.restaurantservice.dto.table.RestTableDTO;
 import com.education.restaurantservice.entity.employee.Waiter;
+import com.education.restaurantservice.entity.table.RestTable;
 import com.education.restaurantservice.exception.employee.EmployeeNotFoundException;
 import com.education.restaurantservice.repository.employee.AdminRepository;
 import com.education.restaurantservice.repository.employee.WaiterRepository;
 import com.education.restaurantservice.repository.order.OrderRepository;
+import com.education.restaurantservice.repository.table.RestTableRepository;
 import com.education.restaurantservice.util.EmployeeUtils;
 import com.education.restaurantservice.util.OrderUtils;
+import com.education.restaurantservice.util.RestTableUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -28,6 +32,7 @@ public class WaiterService {
 
     private final WaiterRepository waiterRepository;
     private final AdminRepository adminRepository;
+    private final RestTableRepository restTableRepository;
     private final OrderRepository orderRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
@@ -49,6 +54,14 @@ public class WaiterService {
                     return new EmployeeNotFoundException("Waiter with phone number: " + phoneNumber + " is not found");
                 });
     }
+
+    public List<RestTableDTO> getCurrentWaiterTables() {
+        Long waiterId = getCurrentWaiter().getId();
+        log.info("Fetching tables оf current waiter: {} assigned to the current waiter...", waiterId);
+        List<RestTable> tables = restTableRepository.findRestTablesByWaiterId(waiterId);
+        return tables.stream().map(RestTableUtils::convertRestTableToRestTableDTO).toList();
+    }
+
 
     public List<OrderDTO> getCurrentWaiterOrders() {
         Long currentWaiterId = getCurrentWaiter().getId();

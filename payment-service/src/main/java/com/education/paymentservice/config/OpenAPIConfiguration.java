@@ -36,9 +36,8 @@ public class OpenAPIConfiguration {
 
 
         Info information = new Info()
-                .title("Restaurant Service API")
+                .title("Payment Service API")
                 .version("1.0")
-                .description("description")
                 .contact(myContact);
         return new OpenAPI()
                 .info(information)

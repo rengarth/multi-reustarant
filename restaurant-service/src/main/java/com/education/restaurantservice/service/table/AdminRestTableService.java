@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -21,7 +20,7 @@ public class AdminRestTableService {
 
     public List<RestTableDTO> getWaiterTables(Long id) {
         log.info("Fetching tables for waiter with id: {}...", id);
-        List<RestTable> waiterTables = restTableRepository.findRestTablesByWaiterId(id).orElse(new ArrayList<>());
+        List<RestTable> waiterTables = restTableRepository.findRestTablesByWaiterId(id);
         log.info("Retrieved {} tables for waiter with id: {}", waiterTables.size(), id);
         return waiterTables.stream()
                 .map(RestTableUtils::convertRestTableToRestTableDTO)

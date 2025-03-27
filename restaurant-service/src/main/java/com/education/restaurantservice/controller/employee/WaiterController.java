@@ -4,6 +4,7 @@ import com.education.restaurantservice.dto.employee.ChangeEmployeeDataRequestDTO
 import com.education.restaurantservice.dto.employee.ChangePasswordRequestDTO;
 import com.education.kafkadto.dto.employee.WaiterDTO;
 import com.education.kafkadto.dto.order.OrderDTO;
+import com.education.restaurantservice.dto.table.RestTableDTO;
 import com.education.restaurantservice.service.employee.WaiterService;
 import com.education.restaurantservice.util.EmployeeUtils;
 import io.swagger.v3.oas.annotations.Operation;
@@ -49,6 +50,26 @@ public class WaiterController {
     @GetMapping("/current")
     public ResponseEntity<WaiterDTO> getCurrentWaiter() {
         return ResponseEntity.ok(EmployeeUtils.convertWaiterToWaiterDTO(waiterService.getCurrentWaiter()));
+    }
+
+    @Operation(summary = "Get current waiter tables", description = "Retrieve a list of tables assigned to the current authenticated waiter.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Successfully retrieved tables of the current waiter",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = RestTableDTO.class)))),
+            @ApiResponse(responseCode = "404",
+                    description = "Current waiter not found",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = String.class))),
+            @ApiResponse(responseCode = "500",
+                    description = "Internal server error",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = String.class)))
+    })
+    @GetMapping("/current/tables")
+    public ResponseEntity<List<RestTableDTO>> getCurrentWaiterTables() {
+        return ResponseEntity.ok(waiterService.getCurrentWaiterTables());
     }
 
     @Operation(summary = "Get current waiter orders", description = "Retrieve a list of orders assigned to the current authenticated waiter.")
